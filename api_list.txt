@@ -1,0 +1,44 @@
+-- 레드마인 이슈 목록 조회
+http://snow.cyberdigm.co.kr/redmine/issues/22814.xml?key=022ffd731c04b6fb30598d5e614369c857f126fe
+http://snow.cyberdigm.co.kr/redmine/issues.xml?project_id=89&tracker_id=17&status_id=open&key=022ffd731c04b6fb30598d5e614369c857f126fe
+
+-- 구글 캘린더 일정 조회
+-- 레드마인 - ofna6buvb1cnt7pl93vi72noos@group.calendar.google.com
+-- cloudium - c1oram6kafe8jcsobd6gt8sepk@group.calendar.google.com
+-- dospluto - dospluto@gmail.com
+GET https://www.googleapis.com/calendar/v3/calendars/dospluto%40gmail.com/events?q=%5B%2322946%5D&key={YOUR_API_KEY}
+https://www.googleapis.com/calendar/v3/calendars/c1oram6kafe8jcsobd6gt8sepk%40group.calendar.google.com/events
+
+-- 구글 테스크 작업 등록
+POST https://www.googleapis.com/tasks/v1/lists/%40default/tasks?key={YOUR_API_KEY}
+
+{
+ "title": "aaaaaaaaaaaab",
+ "due": "2015-03-07T00:00:00.000Z",
+ "links": [
+  {
+   "description": "bbbbbbbbbb",
+   "link": "https://mail.google.com/mail/u/0/?pli=1#all/14be377cbe29f002",
+   "type": "email"
+  }
+ ]
+}
+
+-- Time Entry 생성 curl 스크립트
+curl -v -H "Content-Type: application/json" -X POST --data "@time_entry.json" http://snow.cyberdigm.co.kr/redmine/time_entries.json
+curl -v -H "Content-Type: application/json" -X POST --data "@time_entry.json" -u dospluto:rhtmxm http://snow.cyberdigm.co.kr/redmine/time_entries.json
+curl -v -H "Content-Type: application/json" -X POST --data "@time_entry.json" -H "X-Redmine-API-Key: d3e78937a482f76d2d8b68303fe69aeb6c8b0300" http://snow.cyberdigm.co.kr/redmine/time_entries.json
+curl -v -H "Content-Type: application/json" -X POST --data "@time_entry.json" http://snow.cyberdigm.co.kr/redmine/time_entries.json?key=d3e78937a482f76d2d8b68303fe69aeb6c8b0300
+
+
+
+
+* [SBCK] [#27568] 테스트 이슈 등록
+
+
+
+curl -v -H "Content-Type: application/json" -X POST --data "@issues.json" -u dospluto:rhtmxm http://snow.cyberdigm.co.kr/redmine/issues.json
+
+
+
+

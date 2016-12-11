@@ -1,0 +1,117 @@
+# https://developers.google.com/oauthplayground
+
+###############################################################################
+##
+## 웹 애플리케이션용 클라이언트 ID (Chrome Extension OAuth 2.0)
+##
+## * 클라이언트 ID : 452825330563-rg1hphodf8qe2li93b4vugpuj2jum687.apps.googleusercontent.com
+## * 이메일 주소 : 452825330563-rg1hphodf8qe2li93b4vugpuj2jum687@developer.gserviceaccount.com
+## * 클라이언트 보안 비밀 : I6oU-unQ8DMSlNHyth5OO2Go
+## * URI 리디렉션 : http://www.google.com/robots.txt
+## * 자바스크립트 시작 위치 : http://www.google.com
+##
+###############################################################################
+-- 1. 토큰 발급 요청 (scope : Task, Calendar)
+https://accounts.google.com/o/oauth2/auth?client_id=452825330563-rg1hphodf8qe2li93b4vugpuj2jum687.apps.googleusercontent.com&redirect_uri=http://www.google.com/robots.txt&scope=https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/calendar&response_type=token
+
+-- 2. 수신 결과
+{
+    https://www.google.com/robots.txt#access_token=ya29.CjD_AmPRvFEpVnrUMkYCY-TK9tdMa2FqK6QHHU20tCwOGjLjBSj7w6UeGM0R7Tx2ggo&token_type=Bearer&expires_in=3600
+}
+
+-- 3. API 사용 예제
+-- 구글 작업 조회
+GET https://www.googleapis.com/tasks/v1/lists/%40default/tasks?key={YOUR_API_KEY}
+{
+    https://www.googleapis.com/tasks/v1/lists/%40default/tasks?access_token=ya29.CjD_AmPRvFEpVnrUMkYCY-TK9tdMa2FqK6QHHU20tCwOGjLjBSj7w6UeGM0R7Tx2ggo&token_type=Bearer&expires_in=3600
+}
+
+-- 구글 일정 조회
+GET https://www.googleapis.com/calendar/v3/calendars/dospluto%40gmail.com/events?key={YOUR_API_KEY}
+{
+    https://www.googleapis.com/calendar/v3/calendars/dospluto%40gmail.com/events?q=%5B%2322808%5D&access_token=ya29.CjD_AmPRvFEpVnrUMkYCY-TK9tdMa2FqK6QHHU20tCwOGjLjBSj7w6UeGM0R7Tx2ggo&token_type=Bearer&expires_in=3600
+}
+
+
+
+
+###############################################################################
+##
+## 웹 애플리케이션용 클라이언트 ID (Installed Apps OAuth 2.0)
+## * 클라이언트 : ID 452825330563-qsveqbh6ltaudmucls5ur64lnl1gdlbr.apps.googleusercontent.com
+## * 클라이언트 보안 비밀 : vvb3HkwKjGYHj1gv9KNVE-pL
+## * URI 리디렉션 : urn:ietf:wg:oauth:2.0:oob, http://localhost
+##
+###############################################################################
+-- 1. 토큰 발급 요청 (scope : Task, Calendar)
+https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=452825330563-qsveqbh6ltaudmucls5ur64lnl1gdlbr.apps.googleusercontent.com&redirect_uri=http://localhost&scope=https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/calendar&login_hint=email&include_granted_scopes=false&approval_prompt=force
+
+-- 2. 수신 결과
+{
+    code=4/u880q6UU9rryun6o8YLR8AADxElWXwShjPRv0mrzpYc.YkDNEgf2RmEQgrKXntQAax1oIb3qlwI&client_secret=vvb3HkwKjGYHj1gv9KNVE-pL&redirect_uri=http://localhost&grant_type=authorization_code
+}
+
+-- 3. 토큰 확인
+curl -d "code=4/u880q6UU9rryun6o8YLR8AADxElWXwShjPRv0mrzpYc.YkDNEgf2RmEQgrKXntQAax1oIb3qlwI&client_secret=vvb3HkwKjGYHj1gv9KNVE-pL&redirect_uri=http://localhost&grant_type=authorization_code" https://accounts.google.com/o/oauth2/token
+
+-- 4. 확인 결과
+{
+  "access_token" : "ya29.FAHn5RoyORFQxIvctPG_qHL9d_KFrVtT2PCSYeQpqT9K8f0Sa-N0ljHmk6Rb6jMY6--L63QXgc8PaA",
+  "token_type" : "Bearer",
+  "expires_in" : 3599,
+  "refresh_token" : "1/zMR6f43LIf6WfRkaImxqO5u4dG5NkZybuAnkyg0BLpA"
+}
+
+-- 5. API 사용 예제
+curl "https://www.googleapis.com/tasks/v1/lists/%40default/tasks?access_token=ya29.FAEYnD6XpHGRgDZIEc9SchllDRzIlDNAp5CBTXrkEv8k6jErV_nI2L0NhZfvbmLzgmLo0QdAzEswHw"
+
+-- 6. 사용 결과
+{
+ "kind": "tasks#tasks",
+ "etag": "\"4qyCALf1j510T_-I20NAMbUHF2k/MTY0MDU3NDI0Mg\"",
+ "items": [
+  {
+   "kind": "tasks#task",
+   "id": "MTUxNzQ1NDA3NjQ2MzE3ODQxMTY6MDoyMDc4MTk5MzI1",
+   "etag": "\"4qyCALf1j510T_-I20NAMbUHF2k/MjYxODk4NTc4\"",
+   "title": "cloudium DB 링크 방법 정리",
+   "updated": "2015-02-07T02:05:49.000Z",
+   "selfLink": "https://www.googleapis.com/tasks/v1/lists/MTUxNzQ1NDA3NjQ2MzE3ODQxMTY6MDow/tasks/MTUxNzQ1NDA3NjQ2MzE3ODQxMTY6MDoyMDc4MTk5MzI1",
+   "position": "00000000000001374388",
+   "status": "needsAction",
+   "due": "2015-02-07T00:00:00.000Z"
+  }
+}
+
+
+
+
+###############################################################################
+##
+## 웹 애플리케이션용 클라이언트 ID (Chrome 앱용 클라이언트 ID)
+##
+## * 클라이언트 ID : 452825330563-0vlr3is4jdl3pr2ve8cjhq41moobutdv.apps.googleusercontent.com
+## * URI 리디렉션 : http://www.google.com/robots.txt
+## * 자바스크립트 시작 위치 : http://www.google.com
+##
+###############################################################################
+-- 1. 토큰 발급 요청 (scope : Task, Calendar)
+https://accounts.google.com/o/oauth2/auth?client_id=452825330563-rg1hphodf8qe2li93b4vugpuj2jum687.apps.googleusercontent.com&redirect_uri=http://www.google.com/robots.txt&scope=https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/calendar&response_type=token
+
+-- 2. 수신 결과
+{
+    https://www.google.com/robots.txt#access_token=ya29.Ci_-Av-lQ9oP3DotF0_r28nfVK_4o35zqp9CKRlbdH3rYuKOAzT5O2n4aTPmX1GwfQ&token_type=Bearer&expires_in=3600
+}
+
+-- 3. API 사용 예제
+-- 구글 작업 조회
+GET https://www.googleapis.com/tasks/v1/lists/%40default/tasks?key={YOUR_API_KEY}
+{
+    https://www.googleapis.com/tasks/v1/lists/%40default/tasks?access_token=ya29.Ci_-Av-lQ9oP3DotF0_r28nfVK_4o35zqp9CKRlbdH3rYuKOAzT5O2n4aTPmX1GwfQ
+}
+
+-- 구글 일정 조회
+GET https://www.googleapis.com/calendar/v3/calendars/dospluto%40gmail.com/events?key={YOUR_API_KEY}
+{
+    https://www.googleapis.com/calendar/v3/calendars/dospluto%40gmail.com/events?q=%5B%2322808%5D&access_token=ya29.Ci_-Av-lQ9oP3DotF0_r28nfVK_4o35zqp9CKRlbdH3rYuKOAzT5O2n4aTPmX1GwfQ
+}
