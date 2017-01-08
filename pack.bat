@@ -1,2 +1,3 @@
 cd ..\
-zip -r WorkSync.zip WorkSync
+del Collector.zip
+zip -r Collector.zip Collector
