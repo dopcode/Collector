@@ -2,31 +2,31 @@
 
 ###############################################################################
 ##
-## ì›¹ ì• í”Œë¦¬ì¼€ì´ì…˜ìš© í´ë¼ì´ì–¸íŠ¸ ID (Chrome Extension OAuth 2.0)
+## À¥ ¾ÖÇÃ¸®ÄÉÀÌ¼Ç¿ë Å¬¶óÀÌ¾ğÆ® ID (Chrome Extension OAuth 2.0)
 ##
-## * í´ë¼ì´ì–¸íŠ¸ ID : 452825330563-rg1hphodf8qe2li93b4vugpuj2jum687.apps.googleusercontent.com
-## * ì´ë©”ì¼ ì£¼ì†Œ : 452825330563-rg1hphodf8qe2li93b4vugpuj2jum687@developer.gserviceaccount.com
-## * í´ë¼ì´ì–¸íŠ¸ ë³´ì•ˆ ë¹„ë°€ : I6oU-unQ8DMSlNHyth5OO2Go
-## * URI ë¦¬ë””ë ‰ì…˜ : http://www.google.com/robots.txt
-## * ìë°”ìŠ¤í¬ë¦½íŠ¸ ì‹œì‘ ìœ„ì¹˜ : http://www.google.com
+## * Å¬¶óÀÌ¾ğÆ® ID : 452825330563-rg1hphodf8qe2li93b4vugpuj2jum687.apps.googleusercontent.com
+## * ÀÌ¸ŞÀÏ ÁÖ¼Ò : 452825330563-rg1hphodf8qe2li93b4vugpuj2jum687@developer.gserviceaccount.com
+## * Å¬¶óÀÌ¾ğÆ® º¸¾È ºñ¹Ğ : I6oU-unQ8DMSlNHyth5OO2Go
+## * URI ¸®µğ·º¼Ç : http://www.google.com/robots.txt
+## * ÀÚ¹Ù½ºÅ©¸³Æ® ½ÃÀÛ À§Ä¡ : http://www.google.com
 ##
 ###############################################################################
--- 1. í† í° ë°œê¸‰ ìš”ì²­ (scope : Task, Calendar)
+-- 1. ÅäÅ« ¹ß±Ş ¿äÃ» (scope : Task, Calendar)
 https://accounts.google.com/o/oauth2/auth?client_id=452825330563-rg1hphodf8qe2li93b4vugpuj2jum687.apps.googleusercontent.com&redirect_uri=http://www.google.com/robots.txt&scope=https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/calendar&response_type=token
 
--- 2. ìˆ˜ì‹  ê²°ê³¼
+-- 2. ¼ö½Å °á°ú
 {
     https://www.google.com/robots.txt#access_token=ya29.CjD_AmPRvFEpVnrUMkYCY-TK9tdMa2FqK6QHHU20tCwOGjLjBSj7w6UeGM0R7Tx2ggo&token_type=Bearer&expires_in=3600
 }
 
--- 3. API ì‚¬ìš© ì˜ˆì œ
--- êµ¬ê¸€ ì‘ì—… ì¡°íšŒ
+-- 3. API »ç¿ë ¿¹Á¦
+-- ±¸±Û ÀÛ¾÷ Á¶È¸
 GET https://www.googleapis.com/tasks/v1/lists/%40default/tasks?key={YOUR_API_KEY}
 {
     https://www.googleapis.com/tasks/v1/lists/%40default/tasks?access_token=ya29.CjD_AmPRvFEpVnrUMkYCY-TK9tdMa2FqK6QHHU20tCwOGjLjBSj7w6UeGM0R7Tx2ggo&token_type=Bearer&expires_in=3600
 }
 
--- êµ¬ê¸€ ì¼ì • ì¡°íšŒ
+-- ±¸±Û ÀÏÁ¤ Á¶È¸
 GET https://www.googleapis.com/calendar/v3/calendars/dospluto%40gmail.com/events?key={YOUR_API_KEY}
 {
     https://www.googleapis.com/calendar/v3/calendars/dospluto%40gmail.com/events?q=%5B%2322808%5D&access_token=ya29.CjD_AmPRvFEpVnrUMkYCY-TK9tdMa2FqK6QHHU20tCwOGjLjBSj7w6UeGM0R7Tx2ggo&token_type=Bearer&expires_in=3600
@@ -37,24 +37,24 @@ GET https://www.googleapis.com/calendar/v3/calendars/dospluto%40gmail.com/events
 
 ###############################################################################
 ##
-## ì›¹ ì• í”Œë¦¬ì¼€ì´ì…˜ìš© í´ë¼ì´ì–¸íŠ¸ ID (Installed Apps OAuth 2.0)
-## * í´ë¼ì´ì–¸íŠ¸ : ID 452825330563-qsveqbh6ltaudmucls5ur64lnl1gdlbr.apps.googleusercontent.com
-## * í´ë¼ì´ì–¸íŠ¸ ë³´ì•ˆ ë¹„ë°€ : vvb3HkwKjGYHj1gv9KNVE-pL
-## * URI ë¦¬ë””ë ‰ì…˜ : urn:ietf:wg:oauth:2.0:oob, http://localhost
+## À¥ ¾ÖÇÃ¸®ÄÉÀÌ¼Ç¿ë Å¬¶óÀÌ¾ğÆ® ID (Installed Apps OAuth 2.0)
+## * Å¬¶óÀÌ¾ğÆ® : ID 452825330563-qsveqbh6ltaudmucls5ur64lnl1gdlbr.apps.googleusercontent.com
+## * Å¬¶óÀÌ¾ğÆ® º¸¾È ºñ¹Ğ : vvb3HkwKjGYHj1gv9KNVE-pL
+## * URI ¸®µğ·º¼Ç : urn:ietf:wg:oauth:2.0:oob, http://localhost
 ##
 ###############################################################################
--- 1. í† í° ë°œê¸‰ ìš”ì²­ (scope : Task, Calendar)
+-- 1. ÅäÅ« ¹ß±Ş ¿äÃ» (scope : Task, Calendar)
 https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=452825330563-qsveqbh6ltaudmucls5ur64lnl1gdlbr.apps.googleusercontent.com&redirect_uri=http://localhost&scope=https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/calendar&login_hint=email&include_granted_scopes=false&approval_prompt=force
 
--- 2. ìˆ˜ì‹  ê²°ê³¼
+-- 2. ¼ö½Å °á°ú
 {
     code=4/u880q6UU9rryun6o8YLR8AADxElWXwShjPRv0mrzpYc.YkDNEgf2RmEQgrKXntQAax1oIb3qlwI&client_secret=vvb3HkwKjGYHj1gv9KNVE-pL&redirect_uri=http://localhost&grant_type=authorization_code
 }
 
--- 3. í† í° í™•ì¸
+-- 3. ÅäÅ« È®ÀÎ
 curl -d "code=4/u880q6UU9rryun6o8YLR8AADxElWXwShjPRv0mrzpYc.YkDNEgf2RmEQgrKXntQAax1oIb3qlwI&client_secret=vvb3HkwKjGYHj1gv9KNVE-pL&redirect_uri=http://localhost&grant_type=authorization_code" https://accounts.google.com/o/oauth2/token
 
--- 4. í™•ì¸ ê²°ê³¼
+-- 4. È®ÀÎ °á°ú
 {
   "access_token" : "ya29.FAHn5RoyORFQxIvctPG_qHL9d_KFrVtT2PCSYeQpqT9K8f0Sa-N0ljHmk6Rb6jMY6--L63QXgc8PaA",
   "token_type" : "Bearer",
@@ -62,10 +62,10 @@ curl -d "code=4/u880q6UU9rryun6o8YLR8AADxElWXwShjPRv0mrzpYc.YkDNEgf2RmEQgrKXntQA
   "refresh_token" : "1/zMR6f43LIf6WfRkaImxqO5u4dG5NkZybuAnkyg0BLpA"
 }
 
--- 5. API ì‚¬ìš© ì˜ˆì œ
+-- 5. API »ç¿ë ¿¹Á¦
 curl "https://www.googleapis.com/tasks/v1/lists/%40default/tasks?access_token=ya29.FAEYnD6XpHGRgDZIEc9SchllDRzIlDNAp5CBTXrkEv8k6jErV_nI2L0NhZfvbmLzgmLo0QdAzEswHw"
 
--- 6. ì‚¬ìš© ê²°ê³¼
+-- 6. »ç¿ë °á°ú
 {
  "kind": "tasks#tasks",
  "etag": "\"4qyCALf1j510T_-I20NAMbUHF2k/MTY0MDU3NDI0Mg\"",
@@ -74,7 +74,7 @@ curl "https://www.googleapis.com/tasks/v1/lists/%40default/tasks?access_token=ya
    "kind": "tasks#task",
    "id": "MTUxNzQ1NDA3NjQ2MzE3ODQxMTY6MDoyMDc4MTk5MzI1",
    "etag": "\"4qyCALf1j510T_-I20NAMbUHF2k/MjYxODk4NTc4\"",
-   "title": "cloudium DB ë§í¬ ë°©ë²• ì •ë¦¬",
+   "title": "cloudium DB ¸µÅ© ¹æ¹ı Á¤¸®",
    "updated": "2015-02-07T02:05:49.000Z",
    "selfLink": "https://www.googleapis.com/tasks/v1/lists/MTUxNzQ1NDA3NjQ2MzE3ODQxMTY6MDow/tasks/MTUxNzQ1NDA3NjQ2MzE3ODQxMTY6MDoyMDc4MTk5MzI1",
    "position": "00000000000001374388",
@@ -88,29 +88,29 @@ curl "https://www.googleapis.com/tasks/v1/lists/%40default/tasks?access_token=ya
 
 ###############################################################################
 ##
-## ì›¹ ì• í”Œë¦¬ì¼€ì´ì…˜ìš© í´ë¼ì´ì–¸íŠ¸ ID (Chrome ì•±ìš© í´ë¼ì´ì–¸íŠ¸ ID)
+## À¥ ¾ÖÇÃ¸®ÄÉÀÌ¼Ç¿ë Å¬¶óÀÌ¾ğÆ® ID (Chrome ¾Û¿ë Å¬¶óÀÌ¾ğÆ® ID)
 ##
-## * í´ë¼ì´ì–¸íŠ¸ ID : 452825330563-0vlr3is4jdl3pr2ve8cjhq41moobutdv.apps.googleusercontent.com
-## * URI ë¦¬ë””ë ‰ì…˜ : http://www.google.com/robots.txt
-## * ìë°”ìŠ¤í¬ë¦½íŠ¸ ì‹œì‘ ìœ„ì¹˜ : http://www.google.com
+## * Å¬¶óÀÌ¾ğÆ® ID : 452825330563-0vlr3is4jdl3pr2ve8cjhq41moobutdv.apps.googleusercontent.com
+## * URI ¸®µğ·º¼Ç : http://www.google.com/robots.txt
+## * ÀÚ¹Ù½ºÅ©¸³Æ® ½ÃÀÛ À§Ä¡ : http://www.google.com
 ##
 ###############################################################################
--- 1. í† í° ë°œê¸‰ ìš”ì²­ (scope : Task, Calendar)
+-- 1. ÅäÅ« ¹ß±Ş ¿äÃ» (scope : Task, Calendar)
 https://accounts.google.com/o/oauth2/auth?client_id=452825330563-rg1hphodf8qe2li93b4vugpuj2jum687.apps.googleusercontent.com&redirect_uri=http://www.google.com/robots.txt&scope=https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/calendar&response_type=token
 
--- 2. ìˆ˜ì‹  ê²°ê³¼
+-- 2. ¼ö½Å °á°ú
 {
     https://www.google.com/robots.txt#access_token=ya29.Ci_-Av-lQ9oP3DotF0_r28nfVK_4o35zqp9CKRlbdH3rYuKOAzT5O2n4aTPmX1GwfQ&token_type=Bearer&expires_in=3600
 }
 
--- 3. API ì‚¬ìš© ì˜ˆì œ
--- êµ¬ê¸€ ì‘ì—… ì¡°íšŒ
+-- 3. API »ç¿ë ¿¹Á¦
+-- ±¸±Û ÀÛ¾÷ Á¶È¸
 GET https://www.googleapis.com/tasks/v1/lists/%40default/tasks?key={YOUR_API_KEY}
 {
     https://www.googleapis.com/tasks/v1/lists/%40default/tasks?access_token=ya29.Ci_-Av-lQ9oP3DotF0_r28nfVK_4o35zqp9CKRlbdH3rYuKOAzT5O2n4aTPmX1GwfQ
 }
 
--- êµ¬ê¸€ ì¼ì • ì¡°íšŒ
+-- ±¸±Û ÀÏÁ¤ Á¶È¸
 GET https://www.googleapis.com/calendar/v3/calendars/dospluto%40gmail.com/events?key={YOUR_API_KEY}
 {
     https://www.googleapis.com/calendar/v3/calendars/dospluto%40gmail.com/events?q=%5B%2322808%5D&access_token=ya29.Ci_-Av-lQ9oP3DotF0_r28nfVK_4o35zqp9CKRlbdH3rYuKOAzT5O2n4aTPmX1GwfQ

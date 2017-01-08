@@ -1,15 +1,15 @@
--- ë ˆë“œë§ˆì¸ ì´ìŠˆ ëª©ë¡ ì¡°íšŒ
+-- ·¹µå¸¶ÀÎ ÀÌ½´ ¸ñ·Ï Á¶È¸
 http://snow.cyberdigm.co.kr/redmine/issues/22814.xml?key=022ffd731c04b6fb30598d5e614369c857f126fe
 http://snow.cyberdigm.co.kr/redmine/issues.xml?project_id=89&tracker_id=17&status_id=open&key=022ffd731c04b6fb30598d5e614369c857f126fe
 
--- êµ¬ê¸€ ìº˜ë¦°ë” ì¼ì • ì¡°íšŒ
--- ë ˆë“œë§ˆì¸ - ofna6buvb1cnt7pl93vi72noos@group.calendar.google.com
+-- ±¸±Û Ä¶¸°´õ ÀÏÁ¤ Á¶È¸
+-- ·¹µå¸¶ÀÎ - ofna6buvb1cnt7pl93vi72noos@group.calendar.google.com
 -- cloudium - c1oram6kafe8jcsobd6gt8sepk@group.calendar.google.com
 -- dospluto - dospluto@gmail.com
 GET https://www.googleapis.com/calendar/v3/calendars/dospluto%40gmail.com/events?q=%5B%2322946%5D&key={YOUR_API_KEY}
 https://www.googleapis.com/calendar/v3/calendars/c1oram6kafe8jcsobd6gt8sepk%40group.calendar.google.com/events
 
--- êµ¬ê¸€ í…ŒìŠ¤í¬ ì‘ì—… ë“±ë¡
+-- ±¸±Û Å×½ºÅ© ÀÛ¾÷ µî·Ï
 POST https://www.googleapis.com/tasks/v1/lists/%40default/tasks?key={YOUR_API_KEY}
 
 {
@@ -24,7 +24,7 @@ POST https://www.googleapis.com/tasks/v1/lists/%40default/tasks?key={YOUR_API_KE
  ]
 }
 
--- Time Entry ìƒì„± curl ìŠ¤í¬ë¦½íŠ¸
+-- Time Entry »ı¼º curl ½ºÅ©¸³Æ®
 curl -v -H "Content-Type: application/json" -X POST --data "@time_entry.json" http://snow.cyberdigm.co.kr/redmine/time_entries.json
 curl -v -H "Content-Type: application/json" -X POST --data "@time_entry.json" -u dospluto:rhtmxm http://snow.cyberdigm.co.kr/redmine/time_entries.json
 curl -v -H "Content-Type: application/json" -X POST --data "@time_entry.json" -H "X-Redmine-API-Key: d3e78937a482f76d2d8b68303fe69aeb6c8b0300" http://snow.cyberdigm.co.kr/redmine/time_entries.json
@@ -33,7 +33,7 @@ curl -v -H "Content-Type: application/json" -X POST --data "@time_entry.json" ht
 
 
 
-* [SBCK] [#27568] í…ŒìŠ¤íŠ¸ ì´ìŠˆ ë“±ë¡
+* [SBCK] [#27568] Å×½ºÆ® ÀÌ½´ µî·Ï
 
 
 
