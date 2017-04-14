@@ -430,14 +430,3 @@ dopcode.collector.utils.format = function (date) {
     var week = ["\uc6d4", "\ud654", "\uc218", "\ubaa9", "\uae08", "\ud1a0", "\uc77c"];
     return date.toISOString().slice(5,10).replace(/-/g,".") + " (" + week[date.getDay()] + ")";   
 }
-
-
-
-
-
-
-
-
-
-
-
