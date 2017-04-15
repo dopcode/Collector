@@ -1,23 +1,3 @@
-// Variable ====================================================================
-var ITEM_ID_CREATE = "CREATE";
-var ITEM_ID_COLLECT = "COLLELCT";
-var ITEM_ID_CREATES = "CREATES";
-var ITEM_ID_COLLECTS = "COLLELCTS";
-
-var REDMINE_URL = "";
-var REDMINE_PROJECT = "";
-var REDMINE_KEY = "";
-var REDMINE_ISSUE_URL = "";
-var REDMINE_PROJECT_URL = "";
-var REDMINE_TIME_ENTRIES_API_URL = "";
-
-var GOOGLE_OAUTH_SCOPE = "https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/calendar";
-var GOOGLE_TASK_API_URL = "";
-var GOOGLE_EVENT_API_URL = "";
-
-
-
-
 //Listener ====================================================================
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     dopcode.collector.setOptions();
