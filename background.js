@@ -246,7 +246,6 @@ dopcode.collector.redmine.issue.list = function (url) {
 
         xhr.onload = function() {
             if(xhr.status == 200) {
-                
                 var issues = JSON.parse(xhr.responseText)
                 resolve(issues.issues);
                 alert("Synced : " + issues.total_count + " issues");
@@ -261,9 +260,14 @@ dopcode.collector.redmine.issue.list = function (url) {
         };
         
         var tabUrl = url.replace( /\/issues\?/, "\/issues.json\?");
-        xhr.open("get", tabUrl, true);        xhr.setRequestHeader("Content-Type", "application/json");        xhr.setRequestHeader("X-Redmine-API-Key", REDMINE_KEY);        xhr.send();
+        xhr.open("get", tabUrl, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("X-Redmine-API-Key", REDMINE_KEY);
+        xhr.send();
     });
 }
+
+
 
 
 // dopcode.collector.redmine.timeEntries =======================================
