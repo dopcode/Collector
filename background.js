@@ -1,3 +1,4 @@
+
 // Variable ====================================================================
 var ITEM_ID_CREATE = "CREATE";
 var ITEM_ID_COLLECT = "COLLELCT";
