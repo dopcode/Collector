@@ -1,3 +1,3 @@
 cd ..\
-del Collector.zip
-zip -r Collector.zip Collector
+del dopcode-collector.zip
+zip -r dopcode-collector.zip dopcode-collector
