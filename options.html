@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>cloudium WorkSync Options</title>
-  <style>
-    body: { padding: 10px; }
-  </style>
+<title>cloudium Collector Options</title>
+<style type="text/css">
+.layout {
+	margin-bottom: 10px;
+}
+#status {
+	margin-bottom: 10px;
+}
+</style>
 </head>
-
 <body>
-  <div><input type="text" id="redmine_url" size="50" placeholder="Redmine URL: http://my.redmine.org:8080/redmine"></div>
-  <div><input type="text" id="redmine_project" size="50" placeholder="Redmine Project: 59_12--cloudium-----"></div>
-  <div><input type="text" id="redmine_key" size="50" placeholder="Redmine Key: d3e78937a482f76d2d8b68303fe69aeb6c8b0300"></div>
-  <div><input type="text" id="google_task_id" size="50" placeholder="Google Task ID: @default"></div>
-  <div><input type="text" id="google_event_id" size="50" placeholder="Google Event ID: me@gmail.com"></div>
-  <div id="status"></div>
-  <button id="save">Save</button>
-  <script src="options.js"></script>
+    <div class="layout">
+        <input type="text" id="redmine_url" size="100" placeholder="Redmine URL: http://my.redmine.org:8080/redmine" value="http://snow.redmine.org/redmine">
+        <input type="text" id="redmine_project" size="100" placeholder="Redmine Project: 59_12--cloudium-----" value="59_12--cloudium-----">
+        <input type="text" id="redmine_key" size="100" placeholder="Redmine Key: 022ffd731c04b6fb30598d5e614369c857f126fe" value="022ffd731c04b6fb30598d5e614369c857f126fe">
+        <input type="text" id="google_task_title_pattern" size="100" placeholder="google_task_title_pattern: [${issue.custom_fields[0].value}, #${issue.id}, w] ${issue.subject}" value="[${issue.custom_fields[0].value}, #${issue.id}, w] ${issue.subject}">
+    </div>
+    <div id="status"></div>
+    <button id="save">¿˙¿Â</button>
+    <script src="options.js"></script>
 </body>
 </html>

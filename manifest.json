@@ -3,7 +3,7 @@
       "page": "background.html",
       "persistent": false
    },
-   "description": "Add a Issue to Task of Google, Add a Event to Time Entry of Redmine",
+   "description": "레이드마인 이슈를 구글 태스크에 등록하여 캘린더에 등록된 일정으로 일감의 공수 및 한 일을 정리할 수 있습니다.",
    "icons": {
       "128": "icons/icon-128.png",
       "16": "icons/icon-16.png",
@@ -24,7 +24,8 @@
       "default_icon": "icons/icon-48.png",
       "default_title": "Add This Issue to Task"
    },
-   "permissions": [ "tabs", "contextMenus", "storage", "downloads", "identity", "https://accounts.google.com/o/oauth2/token", "https://www.googleapis.com/*", "http://snow.cyberdigm.co.kr/redmine/*", "http://*/*", "https://*/*" ],
+   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+   "permissions": [ "tabs", "contextMenus", "storage", "downloads", "identity", "identity.email", "https://accounts.google.com/o/oauth2/token", "https://www.googleapis.com/*", "http://snow.cyberdigm.co.kr/redmine/*", "http://*/*", "https://*/*" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
    "version": "0.0.28"
 }

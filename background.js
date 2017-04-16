@@ -88,12 +88,11 @@ dopcode.collector.REDMINE_ISSUES_API_URL = "";
 dopcode.collector.REDMINE_TIME_ENTRIES_API_URL = "";
 
 dopcode.collector.GOOGLE_OAUTH_SCOPE = "https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/calendar";
+dopcode.collector.GOOGLE_TASK_TITLE_PATTERN = "";
 dopcode.collector.GOOGLE_TASK_ID = "";
 dopcode.collector.GOOGLE_EVENT_ID = "";
 dopcode.collector.GOOGLE_TASK_API_URL = "";
 dopcode.collector.GOOGLE_EVENT_API_URL = "";
-
-//dopcode.collector.currentTabId = "";
 
 
 
@@ -111,36 +110,41 @@ dopcode.collector.setMenus = function(tabId) {
 
         if(dopcode.collector.pageType(tab.url) === "issue") {
             chrome.pageAction.show(tabId);
-            chrome.contextMenus.create({"title": "\ud560 \uc77c \ub4f1\ub85d", "contexts":["all"], "id": dopcode.collector.ITEM_ID_CREATE}); // 할 일 등록
-            chrome.contextMenus.create({"title": "\uc77c\uac10 \uc815\ub9ac", "contexts": ["all"], "id": dopcode.collector.ITEM_ID_COLLECT}); // 일감 정리
+            chrome.contextMenus.create({"title": "\ud560 \uc77c\ub85c \ub4f1\ub85d\ud558\uae30", "contexts":["all"], "id": dopcode.collector.ITEM_ID_CREATE});
+            chrome.contextMenus.create({"title": "\uc791\uc5c5 \uc774\ub825 \uc815\ub9ac\ud558\uae30", "contexts": ["all"], "id": dopcode.collector.ITEM_ID_COLLECT});
         }
         else if(dopcode.collector.pageType(tab.url) === "issues") {
             chrome.pageAction.show(tabId);
-            chrome.contextMenus.create({"title": "\ud560 \uc77c \ubaa9\ub85d \ub4f1\ub85d", "contexts":["all"], "id": dopcode.collector.ITEM_ID_CREATES}); // 할 일 목록 등록
-            chrome.contextMenus.create({"title": "\uc77c\uac10 \ubaa9\ub85d \uc815\ub9ac", "contexts": ["all"], "id": dopcode.collector.ITEM_ID_COLLECTS}); // 일감 목록 정리
+            chrome.contextMenus.create({"title": "\ud55c\ubc88\uc5d0 \ud560 \uc77c\ub85c \ub4f1\ub85d\ud558\uae30", "contexts":["all"], "id": dopcode.collector.ITEM_ID_CREATES});
+            chrome.contextMenus.create({"title": "\ud55c\ubc88\uc5d0 \uc791\uc5c5 \uc774\ub825 \uc815\ub9ac\ud558\uae30", "contexts": ["all"], "id": dopcode.collector.ITEM_ID_COLLECTS});
         }
     });
 }
 
 dopcode.collector.setOptions = function() {
-    chrome.storage.sync.get({
-        redmine_url: "", 
-        redmine_project: "", 
-        redmine_key: "", 
-        google_task_id: "@default", 
-        google_event_id: ""
-    }, function(items) {
-        dopcode.collector.REDMINE_URL = items.redmine_url;
-        dopcode.collector.REDMINE_PROJECT = items.redmine_project;
-        dopcode.collector.REDMINE_KEY = items.redmine_key;
-        dopcode.collector.GOOGLE_TASK_ID = encodeURIComponent(items.google_task_id);
-        dopcode.collector.GOOGLE_EVENT_ID = encodeURIComponent(items.google_event_id);
-        dopcode.collector.REDMINE_ISSUE_URL = dopcode.collector.REDMINE_URL + "/issues";
-        dopcode.collector.REDMINE_ISSUES_URL = dopcode.collector.REDMINE_URL + "/projects/" + dopcode.collector.REDMINE_PROJECT + "/issues?";
-        dopcode.collector.REDMINE_ISSUES_API_URL = dopcode.collector.REDMINE_URL + "/issues.json";        
-        dopcode.collector.REDMINE_TIME_ENTRIES_API_URL = dopcode.collector.REDMINE_URL + "/time_entries.json";
-        dopcode.collector.GOOGLE_TASK_API_URL = "https://www.googleapis.com/tasks/v1/lists/" + dopcode.collector.GOOGLE_TASK_ID + "/tasks";
-        dopcode.collector.GOOGLE_EVENT_API_URL = "https://www.googleapis.com/calendar/v3/calendars/" + dopcode.collector.GOOGLE_EVENT_ID + "/events";
+    
+    chrome.identity.getProfileUserInfo(function(userInfo){
+        chrome.storage.sync.get({
+            redmine_url: "", 
+            redmine_project: "", 
+            redmine_key: "", 
+            google_task_title_pattern: ""
+        }, function(items) {
+            dopcode.collector.REDMINE_URL = items.redmine_url;
+            dopcode.collector.REDMINE_PROJECT = items.redmine_project;
+            dopcode.collector.REDMINE_KEY = items.redmine_key;
+            
+            dopcode.collector.GOOGLE_TASK_TITLE_PATTERN = items.google_task_title_pattern;
+            
+            dopcode.collector.GOOGLE_TASK_ID = encodeURIComponent("@default");
+            dopcode.collector.GOOGLE_EVENT_ID = encodeURIComponent(userInfo.email);
+            dopcode.collector.REDMINE_ISSUE_URL = dopcode.collector.REDMINE_URL + "/issues";
+            dopcode.collector.REDMINE_ISSUES_URL = dopcode.collector.REDMINE_URL + "/projects/" + dopcode.collector.REDMINE_PROJECT + "/issues?";
+            dopcode.collector.REDMINE_ISSUES_API_URL = dopcode.collector.REDMINE_URL + "/issues.json";        
+            dopcode.collector.REDMINE_TIME_ENTRIES_API_URL = dopcode.collector.REDMINE_URL + "/time_entries.json";
+            dopcode.collector.GOOGLE_TASK_API_URL = "https://www.googleapis.com/tasks/v1/lists/" + dopcode.collector.GOOGLE_TASK_ID + "/tasks";
+            dopcode.collector.GOOGLE_EVENT_API_URL = "https://www.googleapis.com/calendar/v3/calendars/" + dopcode.collector.GOOGLE_EVENT_ID + "/events";
+        });
     });
 }
 
@@ -192,10 +196,10 @@ dopcode.collector.collect = function (issueId) {
             }
             
             if(events.length > 0) {
-                alert("Collected for #" + issueId + " - " + events.length + "times, " + hours + "hours");
+                alert("#" + issueId + "\uc758 \uc791\uc5c5 \ub0b4\uc5ed\uc744 \uc815\ub9ac\ud588\uc2b5\ub2c8\ub2e4.\n\n" + events.length + "times, " + hours + "hours");
             }
             else {
-                alert("No events to collect for #" + issueId);
+                alert("#" + issueId + "\uc740 \uc815\ub9ac\ud560 \uc791\uc5c5 \uc774\ub825\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.");
             }
         })
     })
@@ -231,12 +235,12 @@ dopcode.collector.redmine.issue.get = function (issueId) {
                 resolve(JSON.parse(xhr.responseText).issue);
             }
             else {
-                reject(new Error(xhr.statusText));
+                reject(new Error(JSON.parse(xhr.responseText)));
             }
         };
         
         xhr.onerror = function () {
-            reject(new Error(xhr.statusText));
+            reject(new Error(JSON.parse(xhr.responseText)));
         };
         
         xhr.open("get", url, true);
@@ -250,17 +254,16 @@ dopcode.collector.redmine.issue.list = function (url) {
 
         xhr.onload = function() {
             if(xhr.status == 200) {
-                var issues = JSON.parse(xhr.responseText)
-                resolve(issues.issues);
+                resolve(JSON.parse(xhr.responseText).issues);
                 alert("Collected for " + issues.total_count + " issues");
             }
             else {
-                reject(new Error(xhr.statusText));
+                reject(new Error(JSON.parse(xhr.responseText)));
             }
         };
         
         xhr.onerror = function () {
-            reject(new Error(xhr.statusText));
+            reject(new Error(JSON.parse(xhr.responseText)));
         };
         
         var tabUrl = url.replace( /\/issues\?/, "\/issues.json\?");
@@ -288,15 +291,15 @@ dopcode.collector.redmine.timeEntries.insert = function (issueId, event) {
 
         xhr.onload = function() {
             if(xhr.status == 201) {
-//                console.dir(data);
+                resolve(JSON.parse(xhr.responseText));
             }
             else {
-                reject(new Error(xhr.statusText));
+                reject(new Error(JSON.parse(xhr.responseText)));
             }
         };
         
         xhr.onerror = function () {
-            reject(new Error(xhr.statusText));
+            reject(new Error(JSON.parse(xhr.responseText)));
         };
             
         xhr.open("post", url, true);
@@ -321,32 +324,25 @@ dopcode.collector.google.tasks.insert = function (issue) {
             var xhr = new XMLHttpRequest(),
                 url = dopcode.collector.GOOGLE_TASK_API_URL, 
                 site = issue.custom_fields[0].value, 
-                subject = issue.subject, 
-                issueId = issue.id,
-                title = "[" + site + ", #" + issueId + ", w] " + issue.subject
-                data = "";
-    
-            if(!issue.due_date) {
-                var date = new Date ();
-                date.setHours ( new Date().getHours() + 9);
-    
+                title = eval("`" + dopcode.collector.GOOGLE_TASK_TITLE_PATTERN + "`"), 
+                date = new Date(), 
                 data = {title: title, due: date};
-            }
-            else {
-                data = {title: title, due: new Date(issue.due_date + " 09:00:00")};
+
+            if(issue.due_date) {
+                date = new Date(issue.due_date);
             }
             
             xhr.onload = function() {
                 if(xhr.status == 200) {
-                    alert("Created at " + dopcode.collector.utils.format(data.due) + " - " + title);
+                    alert(dopcode.collector.utils.format(data.due) + "\uc5d0 \ud560 \uc77c\uc774 \ub4f1\ub85d\ub418\uc5c8\uc2b5\ub2c8\ub2e4.\n\n" + title);
                 }
                 else {
-                    reject(new Error(xhr.statusText));
+                    reject(new Error(JSON.parse(xhr.responseText)));
                 }
             };
             
             xhr.onerror = function () {
-                reject(new Error(xhr.statusText));
+                reject(new Error(JSON.parse(xhr.responseText)));
             };
             
             xhr.open("post", url, true);
@@ -379,12 +375,12 @@ dopcode.collector.google.calendar.events.list = function (issueId) {
                     resolve({issueId: issueId, events: JSON.parse(xhr.responseText)});
                 }
                 else {
-                    reject(new Error(xhr.statusText));
+                    reject(new Error(JSON.parse(xhr.responseText)));
                 }
             };
             
             xhr.onerror = function () {
-                reject(new Error(xhr.statusText));
+                reject(new Error(JSON.parse(xhr.responseText)));
             };
             
             xhr.open("get", url + "?" + data, true);
@@ -414,12 +410,12 @@ dopcode.collector.google.calendar.events.update = function (issueId, event) {
                     resolve(JSON.parse(xhr.responseText));
                 }
                 else {
-                    reject(new Error(xhr.statusText));
+                    reject(new Error(JSON.parse(xhr.responseText)));
                 }
             };
             
             xhr.onerror = function () {
-                reject(new Error(xhr.statusText));
+                reject(new Error(JSON.parse(xhr.responseText)));
             };            
             
             xhr.open("put", url, true);
@@ -435,6 +431,6 @@ dopcode.collector.google.calendar.events.update = function (issueId, event) {
 
 //dopcode.collector.utils ======================================================
 dopcode.collector.utils.format = function (date) {
-    var week = ["\uc6d4", "\ud654", "\uc218", "\ubaa9", "\uae08", "\ud1a0", "\uc77c"];
+    var week = ["\uc77c", "\uc6d4", "\ud654", "\uc218", "\ubaa9", "\uae08", "\ud1a0"];
     return date.toISOString().slice(5,10).replace(/-/g,".") + "(" + week[date.getDay()] + ")";   
 }
