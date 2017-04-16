@@ -1,5 +1,6 @@
 
 
+
 //Listener ====================================================================
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     dopcode.collector.setOptions();
