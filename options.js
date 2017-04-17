@@ -11,6 +11,7 @@ function save_options() {
     google_task_title_pattern: google_task_title_pattern 
   }, function() {
     var status = document.getElementById("status");
+    // M009
     status.textContent = "\uc131\uacf5\uc801\uc73c\ub85c \uc800\uc7a5\ub418\uc5c8\uc2b5\ub2c8\ub2e4.";
     setTimeout(function() {
       status.textContent = "";

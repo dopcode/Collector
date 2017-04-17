@@ -110,13 +110,17 @@ dopcode.collector.setMenus = function(tabId) {
 
         if(dopcode.collector.pageType(tab.url) === "issue") {
             chrome.pageAction.show(tabId);
-            chrome.contextMenus.create({"title": "\ud560 \uc77c\ub85c \ub4f1\ub85d\ud558\uae30", "contexts":["all"], "id": dopcode.collector.ITEM_ID_CREATE});
-            chrome.contextMenus.create({"title": "\uc791\uc5c5 \uc774\ub825 \uc815\ub9ac\ud558\uae30", "contexts": ["all"], "id": dopcode.collector.ITEM_ID_COLLECT});
+            // M001
+            chrome.contextMenus.create({"title": "Google Tasks \ud560 \uc77c\ub85c \ub4f1\ub85d\ud558\uae30", "contexts":["all"], "id": dopcode.collector.ITEM_ID_CREATE});
+            // M002
+            chrome.contextMenus.create({"title": "Google Calendar\uc5d0 \ub4f1\ub85d\ub41c \uc791\uc5c5 \ub0b4\uc5ed\uc744 \uc815\ub9ac\ud558\uae30", "contexts": ["all"], "id": dopcode.collector.ITEM_ID_COLLECT});
         }
         else if(dopcode.collector.pageType(tab.url) === "issues") {
             chrome.pageAction.show(tabId);
-            chrome.contextMenus.create({"title": "\ud55c\ubc88\uc5d0 \ud560 \uc77c\ub85c \ub4f1\ub85d\ud558\uae30", "contexts":["all"], "id": dopcode.collector.ITEM_ID_CREATES});
-            chrome.contextMenus.create({"title": "\ud55c\ubc88\uc5d0 \uc791\uc5c5 \uc774\ub825 \uc815\ub9ac\ud558\uae30", "contexts": ["all"], "id": dopcode.collector.ITEM_ID_COLLECTS});
+            // M003
+            chrome.contextMenus.create({"title": "\ud55c\ubc88\uc5d0 Google Tasks \ud560 \uc77c\ub85c \ub4f1\ub85d\ud558\uae30", "contexts":["all"], "id": dopcode.collector.ITEM_ID_CREATES});
+            // M004
+            chrome.contextMenus.create({"title": "\ud55c\ubc88\uc5d0 Google Calendar\uc5d0 \ub4f1\ub85d\ub41c \uc791\uc5c5 \ub0b4\uc5ed\uc744 \uc815\ub9ac\ud558\uae30", "contexts": ["all"], "id": dopcode.collector.ITEM_ID_COLLECTS});
         }
     });
 }
@@ -196,10 +200,12 @@ dopcode.collector.collect = function (issueId) {
             }
             
             if(events.length > 0) {
-                alert("#" + issueId + "\uc758 \uc791\uc5c5 \ub0b4\uc5ed\uc744 \uc815\ub9ac\ud588\uc2b5\ub2c8\ub2e4.\n\n" + events.length + "times, " + hours + "hours");
+            	// M006
+                alert("#" + issueId + " \uc77c\uac10\uc758 Google Calendar\uc5d0 \ub4f1\ub85d\ub41c \uc791\uc5c5 \ub0b4\uc5ed\uc744 \uc815\ub9ac\ud588\uc2b5\ub2c8\ub2e4.\n\n" + events.length + "times, " + hours + "hours");
             }
             else {
-                alert("#" + issueId + "\uc740 \uc815\ub9ac\ud560 \uc791\uc5c5 \uc774\ub825\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.");
+            	// M007
+                alert("#" + issueId + "\uc740 Google Calendar\uc5d0 \ub4f1\ub85d\ub41c \uc815\ub9ac\ud560 \uc791\uc5c5 \ub0b4\uc5ed\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.");
             }
         })
     })
@@ -329,12 +335,13 @@ dopcode.collector.google.tasks.insert = function (issue) {
                 data = {title: title, due: date};
 
             if(issue.due_date) {
-                date = new Date(issue.due_date);
+                data.due = new Date(issue.due_date);
             }
             
             xhr.onload = function() {
                 if(xhr.status == 200) {
-                    alert(dopcode.collector.utils.format(data.due) + "\uc5d0 \ud560 \uc77c\uc774 \ub4f1\ub85d\ub418\uc5c8\uc2b5\ub2c8\ub2e4.\n\n" + title);
+                	// M005
+                    alert(dopcode.collector.utils.format(data.due) + "\uc5d0 Google Tasks \ud560 \uc77c\uc774 \ub4f1\ub85d\ub418\uc5c8\uc2b5\ub2c8\ub2e4.\n\n" + title);
                 }
                 else {
                     reject(new Error(JSON.parse(xhr.responseText)));
@@ -431,6 +438,7 @@ dopcode.collector.google.calendar.events.update = function (issueId, event) {
 
 //dopcode.collector.utils ======================================================
 dopcode.collector.utils.format = function (date) {
+	// M008
     var week = ["\uc77c", "\uc6d4", "\ud654", "\uc218", "\ubaa9", "\uae08", "\ud1a0"];
     return date.toISOString().slice(5,10).replace(/-/g,".") + "(" + week[date.getDay()] + ")";   
 }
