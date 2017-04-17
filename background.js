@@ -137,9 +137,7 @@ dopcode.collector.setOptions = function() {
             dopcode.collector.REDMINE_URL = items.redmine_url;
             dopcode.collector.REDMINE_PROJECT = items.redmine_project;
             dopcode.collector.REDMINE_KEY = items.redmine_key;
-            
             dopcode.collector.GOOGLE_TASK_TITLE_PATTERN = items.google_task_title_pattern;
-            
             dopcode.collector.GOOGLE_TASK_ID = encodeURIComponent("@default");
             dopcode.collector.GOOGLE_EVENT_ID = encodeURIComponent(userInfo.email);
             dopcode.collector.REDMINE_ISSUE_URL = dopcode.collector.REDMINE_URL + "/issues";
