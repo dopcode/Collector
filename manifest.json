@@ -27,5 +27,5 @@
    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
    "permissions": [ "tabs", "contextMenus", "storage", "downloads", "identity", "identity.email", "https://accounts.google.com/o/oauth2/token", "https://www.googleapis.com/*", "http://snow.cyberdigm.co.kr/redmine/*", "http://*/*", "https://*/*" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "0.0.33"
+   "version": "0.0.34"
 }
