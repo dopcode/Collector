@@ -261,10 +261,13 @@ dopcode.collector.redmine.issue.list = function (url) {
             	var issues = JSON.parse(xhr.responseText);
             	if(issues.total_count > 100) {
             		// M010            		
-            		alert("\uc870\ud68c\ub41c \uac74\uc774 " + issues.total_count + "\uac74\uc785\ub2c8\ub2e4.\n\uc644\ub8cc\uc77c \uc21c\uc73c\ub85c \ud55c \ubc88\uc5d0 100\uac74\uae4c\uc9c0 \ucc98\ub9ac\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.\n\uacc4\uc18d\ud558\uc2dc\ub824\uba74 \uac80\uc0c9 \uc870\uac74\uc744 \uc870\uc815\ud55c \ud6c4 \ub2e4\uc2dc \uc2dc\ub3c4\ud574 \uc8fc\uc2ed\uc2dc\uc624.");
-            		return;
+            		alert("\uc870\ud68c\ub41c \uac74\uc740 " + issues.total_count + "\uac74\uc785\ub2c8\ub2e4.\n\uc644\ub8cc\uc77c \uc21c\uc73c\ub85c \ud55c \ubc88\uc5d0 100\uac74\uae4c\uc9c0 \ucc98\ub9ac\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.\n\uacc4\uc18d\ud558\uc2dc\ub824\uba74 \uac80\uc0c9 \uc870\uac74\uc744 \uc870\uc815\ud55c \ud6c4 \ub2e4\uc2dc \uc2dc\ub3c4\ud574 \uc8fc\uc2ed\uc2dc\uc624.");
             	}
-            	resolve(issues.issues);
+            	else {
+            		// M011
+            		alert("\ucc98\ub9ac \ub300\uc0c1\uc740 " + issues.total_count + "\uac74\uc785\ub2c8\ub2e4.");
+            		resolve(issues.issues);
+            	}
             }
             else {
                 reject(new Error(JSON.parse(xhr.responseText)));

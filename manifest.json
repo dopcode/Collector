@@ -3,7 +3,7 @@
       "page": "background.html",
       "persistent": false
    },
-   "description": "Redmine 일감을 Google Tasks에 할 일로 등록하여 Google Calendar에 등록된 일정으로 작업 내역을 정리할 수 있습니다.",
+   "description": "레드마인 일감을 Google Tasks에 할 일로 등록하여 Google Calendar에 등록된 일정으로 작업 내역을 정리할 수 있습니다.",
    "icons": {
       "128": "icons/icon-128.png",
       "16": "icons/icon-16.png",
@@ -27,5 +27,5 @@
    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
    "permissions": [ "tabs", "contextMenus", "storage", "downloads", "identity", "identity.email", "https://accounts.google.com/o/oauth2/token", "https://www.googleapis.com/*", "http://snow.cyberdigm.co.kr/redmine/*", "http://*/*", "https://*/*" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "0.0.35"
+   "version": "0.0.38"
 }
