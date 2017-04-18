@@ -58,6 +58,7 @@ dopcode.ns = function (ns_string) {
 
 
 
+
 // dopcode namespaces ==========================================================
 dopcode.collector                           = dopcode.ns("dopcode.collector");
 dopcode.collector.redmine                   = dopcode.ns("dopcode.collector.redmine");
@@ -93,6 +94,8 @@ dopcode.collector.GOOGLE_TASK_ID = "";
 dopcode.collector.GOOGLE_EVENT_ID = "";
 dopcode.collector.GOOGLE_TASK_API_URL = "";
 dopcode.collector.GOOGLE_EVENT_API_URL = "";
+
+dopcode.collector.LIMIT = 100;
 
 
 
@@ -212,16 +215,135 @@ dopcode.collector.collect = function (issueId) {
     });
 }
 
+//dopcode.collector.collects = function (url) {
+//    Promise.resolve(url)
+//    .then(dopcode.collector.redmine.issue.list)
+//    .then(function(issues) {
+//        for( var i = 0; i < issues.length; i++) {
+//            dopcode.collector.collect(issues[i].id);
+//        }        
+//    })
+//    .catch(function(error) {
+//        console.error(error);
+//    });
+//}
 dopcode.collector.collects = function (url) {
-    Promise.resolve(url)
-    .then(dopcode.collector.redmine.issue.list)
-    .then(function(issues) {
-        for( var i = 0; i < issues.length; i++) {
-            dopcode.collector.collect(issues[i].id);
-        }        
-    })
-    .catch(function(error) {
-        console.error(error);
+    var xhr = new XMLHttpRequest(),
+        result, 
+        offset = 0,
+        page;
+
+    xhr.onload = function() {
+        if(xhr.status == 200) {
+            result = JSON.parse(xhr.responseText);
+            
+            // M011
+            alert("\ucc98\ub9ac \ub300\uc0c1\uc740 " + result.total_count + "\uac74\uc785\ub2c8\ub2e4.");
+
+            page = Math.ceil(result.total_count / dopcode.collector.LIMIT);
+            do {
+                dopcode.collector.redmine.issue.list3(url, (offset * dopcode.collector.LIMIT));
+                offset += 1;
+            }
+            while (offset < page);
+
+        }
+        else {
+            new Error(JSON.parse(xhr.responseText));
+        }
+    };
+    
+    xhr.onerror = function () {
+        new Error(JSON.parse(xhr.responseText));
+    };
+    
+    var tabUrl = url.replace( /\/issues\?/, "\/issues.json\?");
+    tabUrl += "&sort=due_date:asc&offset=0&limit=" + dopcode.collector.LIMIT;
+    
+    xhr.open("get", tabUrl, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("X-Redmine-API-Key", dopcode.collector.REDMINE_KEY);
+    xhr.send();
+}
+
+dopcode.collector.redmine.issue.list3 = function (url, offset) {
+    var xhr = new XMLHttpRequest(),
+        result, 
+        issues; 
+
+    xhr.onload = function() {
+        
+        if(xhr.status == 200) {
+            
+            result = JSON.parse(xhr.responseText);
+            
+            issues = result.issues;
+            for( var i = 0; i < issues.length; i++) {
+                dopcode.collector.collect2(issues[i].id);
+            }
+        }
+        else {
+            new Error(JSON.parse(xhr.responseText));
+        }
+    };
+    
+    xhr.onerror = function () {
+        new Error(JSON.parse(xhr.responseText));
+    };
+    
+    var tabUrl = url.replace( /\/issues\?/, "\/issues.json\?");
+    tabUrl += "&sort=due_date:asc&offset=" + offset + "&limit=" + dopcode.collector.LIMIT;
+
+    xhr.open("get", tabUrl, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("X-Redmine-API-Key", dopcode.collector.REDMINE_KEY);
+    xhr.send();
+}
+
+dopcode.collector.collect2 = function (issueId) {
+    
+    chrome.identity.getAuthToken({ 'interactive': true }, function(token){
+        var xhr = new XMLHttpRequest(),
+            calendar, 
+            events, 
+            hours = 0;
+            url = dopcode.collector.GOOGLE_EVENT_API_URL,
+            data = "q=" + encodeURIComponent(issueId + ", w]") + "&orderBy=startTime&singleEvents=true";
+
+        xhr.onload = function() {
+            if(xhr.status == 200) {
+
+                calendar = JSON.parse(xhr.responseText);
+                events = calendar.items;
+                if(events.length > 0) {
+
+                    for (var i in events) {
+                        dopcode.collector.redmine.timeEntries.insert(issueId, events[i]);
+                        hours += Number(((new Date(events[i].end.dateTime).getTime() - new Date(events[i].start.dateTime).getTime()) / (1000 * 60 * 60)).toFixed(1));
+                        dopcode.collector.google.calendar.events.update(issueId, events[i]);
+                    }
+                    
+                    // M006
+                    alert("#" + issueId + " \uc77c\uac10\uc758 Google Calendar\uc5d0 \ub4f1\ub85d\ub41c \uc791\uc5c5 \ub0b4\uc5ed\uc744 \uc815\ub9ac\ud588\uc2b5\ub2c8\ub2e4.\n\n" + events.length + "times, " + hours + "hours");
+                }
+                else {
+                    // M007
+                    alert("#" + issueId + "\uc740 Google Calendar\uc5d0 \ub4f1\ub85d\ub41c \uc815\ub9ac\ud560 \uc791\uc5c5 \ub0b4\uc5ed\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.");
+                }    
+            }
+            else {
+                new Error(JSON.parse(xhr.responseText));
+            }            
+        };
+    
+        xhr.onerror = function () {
+            new Error(JSON.parse(xhr.responseText));
+        };
+        
+        xhr.open("get", url + "?" + data, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Authorization", "OAuth " + token);
+        xhr.send();
     });
 }
 
@@ -261,10 +383,13 @@ dopcode.collector.redmine.issue.list = function (url) {
             	var issues = JSON.parse(xhr.responseText);
             	if(issues.total_count > 100) {
             		// M010            		
-            		alert("\uc870\ud68c\ub41c \uac74\uc774 " + issues.total_count + "\uac74\uc785\ub2c8\ub2e4.\n\uc644\ub8cc\uc77c \uc21c\uc73c\ub85c \ud55c \ubc88\uc5d0 100\uac74\uae4c\uc9c0 \ucc98\ub9ac\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.\n\uacc4\uc18d\ud558\uc2dc\ub824\uba74 \uac80\uc0c9 \uc870\uac74\uc744 \uc870\uc815\ud55c \ud6c4 \ub2e4\uc2dc \uc2dc\ub3c4\ud574 \uc8fc\uc2ed\uc2dc\uc624.");
-            		return;
+            		alert("\uc870\ud68c\ub41c \uac74\uc740 " + issues.total_count + "\uac74\uc785\ub2c8\ub2e4.\n\uc644\ub8cc\uc77c \uc21c\uc73c\ub85c \ud55c \ubc88\uc5d0 100\uac74\uae4c\uc9c0 \ucc98\ub9ac\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.\n\uacc4\uc18d\ud558\uc2dc\ub824\uba74 \uac80\uc0c9 \uc870\uac74\uc744 \uc870\uc815\ud55c \ud6c4 \ub2e4\uc2dc \uc2dc\ub3c4\ud574 \uc8fc\uc2ed\uc2dc\uc624.");
             	}
-            	resolve(issues.issues);
+            	else {
+            		// M011
+            		alert("\ucc98\ub9ac \ub300\uc0c1\uc740 " + issues.total_count + "\uac74\uc785\ub2c8\ub2e4.");
+            		resolve(issues.issues);
+            	}
             }
             else {
                 reject(new Error(JSON.parse(xhr.responseText)));
@@ -401,6 +526,7 @@ dopcode.collector.google.calendar.events.list = function (issueId) {
         });
     });
 }
+
 
 dopcode.collector.google.calendar.events.update = function (issueId, event) {
     new Promise(function (resolve, reject) {
