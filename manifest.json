@@ -22,10 +22,10 @@
    },
    "page_action": {
       "default_icon": "icons/icon-48.png",
-      "default_title": "Add This Issue to Task"
+      "default_title": "Google Tasks에 할 일을 등록합니다."
    },
    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
    "permissions": [ "tabs", "contextMenus", "storage", "downloads", "identity", "identity.email", "https://accounts.google.com/o/oauth2/token", "https://www.googleapis.com/*", "http://snow.cyberdigm.co.kr/redmine/*", "http://*/*", "https://*/*" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "0.0.34"
+   "version": "0.0.35"
 }
