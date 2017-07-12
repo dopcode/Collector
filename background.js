@@ -402,7 +402,8 @@ dopcode.collector.redmine.issue.list = function (url) {
         
         var tabUrl = url.replace( /\/issues\?/, "\/issues.json\?");
         tabUrl += "&sort=due_date:asc&offset=0&limit=100";
-        xhr.open("get", tabUrl, true);
+
+        xhr.open("get", tabUrl, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader("X-Redmine-API-Key", dopcode.collector.REDMINE_KEY);
         xhr.send();
