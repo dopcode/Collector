@@ -102,11 +102,16 @@ dopcode.collector.GOOGLE_EVENT_ID = "";
 dopcode.collector.GOOGLE_TASK_API_URL = "";
 dopcode.collector.GOOGLE_EVENT_API_URL = "";
 
+<<<<<<< HEAD
 dopcode.collector.LIMIT = 100;
 
 dopcode.collector.total.count = 0;
 dopcode.collector.result.count = 0;
 dopcode.collector.result.hours = 0;
+=======
+//dopcode.collector.LIMIT = 100;
+dopcode.collector.LIMIT = 2;
+>>>>>>> branch 'master' of https://github.com/dopcode/dopcode-collector.git
 
 
 
@@ -199,6 +204,7 @@ dopcode.collector.creates = function (url) {
 	            offset += 1;
 	        }
 	        while (offset < page);
+<<<<<<< HEAD
 	    }
 	    else {
 	        new Error(JSON.parse(xhr.responseText));
@@ -217,6 +223,21 @@ dopcode.collector.creates = function (url) {
 		alert("\uc791\uc5c5 \ubaa9\ub85d \uc870\ud68c\ub97c \uc704\ud574\uc11c \uba85\ud655\ud55c \uac80\uc0c9 \uc870\uac74\uc744 \uc801\uc6a9\ud574 \uc8fc\uc2ed\uc2dc\uc624.");
 		return;
 	}
+=======
+	
+	    }
+	    else {
+	        new Error(JSON.parse(xhr.responseText));
+	    }
+	};
+	
+	xhr.onerror = function () {
+	    new Error(JSON.parse(xhr.responseText));
+	};
+	
+	var tabUrl = url.replace( /\/issues\?/, "\/issues.json\?");
+	tabUrl += "&sort=due_date:asc&offset=0&limit=" + dopcode.collector.LIMIT;
+>>>>>>> branch 'master' of https://github.com/dopcode/dopcode-collector.git
 	
 	xhr.open("get", tabUrl, true);
 	xhr.setRequestHeader("Content-Type", "application/json");
@@ -224,8 +245,13 @@ dopcode.collector.creates = function (url) {
 	xhr.send();    
 }
 
+<<<<<<< HEAD
 dopcode.collector.collect = function (issueId, index) {
     dopcode.collector.google.calendar.events.list(issueId, index);
+=======
+dopcode.collector.collect = function (issueId) {
+    dopcode.collector.google.calendar.events.list(issueId);
+>>>>>>> branch 'master' of https://github.com/dopcode/dopcode-collector.git
 }
 
 dopcode.collector.collects = function (url) {
@@ -285,8 +311,13 @@ dopcode.collector.redmine.issue.list = function (url, offset, callback) {
             result = JSON.parse(xhr.responseText);
             issues = result.issues;
             for( var i = 0; i < issues.length; i++) {
+<<<<<<< HEAD
                 callback(issues[i].id, (i + offset));
+=======
+                callback(issues[i].id);
+>>>>>>> branch 'master' of https://github.com/dopcode/dopcode-collector.git
             }
+            
         }
         else {
             new Error(JSON.parse(xhr.responseText));
@@ -322,8 +353,11 @@ dopcode.collector.redmine.issue.get = function (issueId) {
             dopcode.collector.google.tasks.insert(issue);
         }
         else {
+<<<<<<< HEAD
     		// M013
     		alert("\uc791\uc5c5 \ub300\uc0c1\uc774 \ubd84\uba85\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4. \uc77c\uac10 \uac80\uc0c9 \ud6c4 \ub2e4\uc2dc \uc2dc\ub3c4\ud574 \uc8fc\uc2ed\uc2dc\uc624.");
+=======
+>>>>>>> branch 'master' of https://github.com/dopcode/dopcode-collector.git
             new Error(JSON.parse(xhr.responseText));
         }
     };
@@ -411,6 +445,7 @@ dopcode.collector.google.tasks.insert = function (issue) {
 
 
 // dopcode.collector.google.calendar.events ====================================
+<<<<<<< HEAD
 dopcode.collector.google.calendar.events.list = function (issueId, index) {
     chrome.identity.getAuthToken({ 'interactive': true }, function(token){
         var xhr = new XMLHttpRequest(),
@@ -446,6 +481,35 @@ dopcode.collector.google.calendar.events.list = function (issueId, index) {
 	            	alert(dopcode.collector.total.count + "\uac74\uc758 \uc77c\uac10\uc744 \uc815\ub9ac\ud588\uc2b5\ub2c8\ub2e4.\n\n" + dopcode.collector.result.count + "\uac1c \uc77c\uac10, \ucd1d " + dopcode.collector.result.hours + "\uc2dc\uac04");	            	
 	            }
 	            
+=======
+dopcode.collector.google.calendar.events.list = function (issueId) {
+    chrome.identity.getAuthToken({ 'interactive': true }, function(token){
+        var xhr = new XMLHttpRequest(),
+	        google, 
+	        url = dopcode.collector.GOOGLE_EVENT_API_URL,
+	        data = "q=" + encodeURIComponent(issueId + ", w]") + "&orderBy=startTime&singleEvents=true", 
+	        events, 
+	        hours = 0;
+
+	    xhr.onload = function() {
+	        if(xhr.status == 200) {
+	            events = JSON.parse(xhr.responseText).items;
+	
+	            for (var i in events) {
+	                dopcode.collector.redmine.timeEntries.insert(issueId, events[i]);
+	                hours += Number(((new Date(events[i].end.dateTime).getTime() - new Date(events[i].start.dateTime).getTime()) / (1000 * 60 * 60)).toFixed(1));
+	                dopcode.collector.google.calendar.events.update(issueId, events[i]);
+	            }
+	            
+	            if(events.length > 0) {
+	            	// M006
+	                alert("#" + issueId + " \uc77c\uac10\uc758 Google Calendar\uc5d0 \ub4f1\ub85d\ub41c \uc791\uc5c5 \ub0b4\uc5ed\uc744 \uc815\ub9ac\ud588\uc2b5\ub2c8\ub2e4.\n\n" + events.length + "times, " + hours + "hours");
+	            }
+//	            else {
+//	            	// M007
+//	                alert("#" + issueId + "\uc740 Google Calendar\uc5d0 \ub4f1\ub85d\ub41c \uc815\ub9ac\ud560 \uc791\uc5c5 \ub0b4\uc5ed\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.");
+//	            }
+>>>>>>> branch 'master' of https://github.com/dopcode/dopcode-collector.git
 	        }
 	        else {
 	            new Error(JSON.parse(xhr.responseText));

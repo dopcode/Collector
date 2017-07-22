@@ -27,5 +27,9 @@
    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
    "permissions": [ "tabs", "contextMenus", "storage", "downloads", "identity", "identity.email", "https://accounts.google.com/o/oauth2/token", "https://www.googleapis.com/*", "http://snow.cyberdigm.co.kr/redmine/*", "http://*/*", "https://*/*" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
+<<<<<<< HEAD
    "version": "0.0.44"
+=======
+   "version": "0.0.42"
+>>>>>>> branch 'master' of https://github.com/dopcode/dopcode-collector.git
 }
